@@ -2,7 +2,7 @@
 export default async function Home() {
   return (
     <>
-      <div>{`The main skill of a.`}</div>
+      <div className="font-sans text-5xl font-black">dunked.</div>
     </>
   );
 }

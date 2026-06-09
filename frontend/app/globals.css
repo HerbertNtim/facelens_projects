@@ -4,35 +4,77 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: "Neue Haas Unica", sans-serif;
+
   /* ─── Brand tokens ─── */
-  --color-background:       var(--background);
-  --color-background-alt:   var(--background-alt);
-  --color-foreground:       var(--foreground);
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
-  --color-card:             var(--card);
-  --color-card-foreground:  var(--card-foreground);
-  --color-cta:              var(--cta);
-  --color-cta-foreground:   var(--cta-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
 
   /* ─── shadcn semantic aliases ─── */
-  --color-primary:            var(--primary);
+  --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary:          var(--secondary);
+  --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted:              var(--muted);
-  --color-accent:             var(--accent);
-  --color-accent-foreground:  var(--accent-foreground);
-  --color-destructive:        var(--destructive);
-  --color-border:             var(--border);
-  --color-input:              var(--input);
-  --color-ring:               var(--ring);
-  --color-popover:            var(--popover);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+@font-face {
+  font-family: 'Neue Haas Unica';
+  src: url('/fonts/NeueHaasUnica-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Unica';
+  src: url('/fonts/NeueHaasUnica-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Unica';
+  src: url('/fonts/NeueHaasUnica-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Unica';
+  src: url('/fonts/NeueHaasUnica-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Haas Unica';
+  src: url('/fonts/NeueHaasUnica-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* ═══════════════════════════════════════
@@ -42,36 +84,36 @@
   --radius: 0.625rem;
 
   /* Core palette */
-  --background:         #ffffff;
-  --background-alt:     #e1e3e2;   /* secondary section bg */
-  --card:               #efefef;
-  --foreground:         #13161b;   /* main text */
-  --muted-foreground:   #c6c7c8;   /* descriptions / captions */
-  --cta:                #32c188;   /* call-to-action green */
-  --cta-foreground:     #ffffff;
+  --background: #ffffff;
+  --background-alt: #e1e3e2; /* secondary section bg */
+  --card: #efefef;
+  --foreground: #13161b; /* main text */
+  --muted-foreground: #c6c7c8; /* descriptions / captions */
+  --cta: #32c188; /* call-to-action green */
+  --cta-foreground: #ffffff;
 
   /* shadcn semantic tokens — mapped to your palette */
-  --primary:            #32c188;
+  --primary: #32c188;
   --primary-foreground: #ffffff;
 
-  --secondary:          #e1e3e2;
+  --secondary: #e1e3e2;
   --secondary-foreground: #13161b;
 
-  --muted:              #e1e3e2;
+  --muted: #e1e3e2;
 
-  --accent:             #32c188;
-  --accent-foreground:  #ffffff;
+  --accent: #32c188;
+  --accent-foreground: #ffffff;
 
-  --destructive:        #ef4444;
+  --destructive: #ef4444;
 
-  --border:             #c6c7c8;
-  --input:              #e1e3e2;
-  --ring:               #32c188;
+  --border: #c6c7c8;
+  --input: #e1e3e2;
+  --ring: #32c188;
 
-  --popover:            #ffffff;
+  --popover: #ffffff;
   --popover-foreground: #13161b;
 
-  --card-foreground:    #13161b;
+  --card-foreground: #13161b;
 }
 
 /* ═══════════════════════════════════════
@@ -79,36 +121,36 @@
    ═══════════════════════════════════════ */
 .dark {
   /* Core palette */
-  --background:         #131416;   /* main section bg  (was "1311616" — assumed typo) */
-  --background-alt:     #131416;   /* same dark bg for alt sections */
-  --card:               #191c20;
-  --foreground:         #ffffff;   /* main text */
-  --muted-foreground:   #545659;   /* descriptions / captions */
-  --cta:                #32c188;
-  --cta-foreground:     #ffffff;
+  --background: #131416; /* main section bg  (was "1311616" — assumed typo) */
+  --background-alt: #131416; /* same dark bg for alt sections */
+  --card: #191c20;
+  --foreground: #ffffff; /* main text */
+  --muted-foreground: #545659; /* descriptions / captions */
+  --cta: #32c188;
+  --cta-foreground: #ffffff;
 
   /* shadcn semantic tokens */
-  --primary:            #32c188;
+  --primary: #32c188;
   --primary-foreground: #ffffff;
 
-  --secondary:          #191c20;
+  --secondary: #191c20;
   --secondary-foreground: #ffffff;
 
-  --muted:              #191c20;
+  --muted: #191c20;
 
-  --accent:             #32c188;
-  --accent-foreground:  #ffffff;
+  --accent: #32c188;
+  --accent-foreground: #ffffff;
 
-  --destructive:        #ef4444;
+  --destructive: #ef4444;
 
-  --border:             #545659;
-  --input:              #191c20;
-  --ring:               #32c188;
+  --border: #545659;
+  --input: #191c20;
+  --ring: #32c188;
 
-  --popover:            #191c20;
+  --popover: #191c20;
   --popover-foreground: #ffffff;
 
-  --card-foreground:    #ffffff;
+  --card-foreground: #ffffff;
 }
 
 /* ═══════════════════════════════════════
@@ -120,5 +162,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-weight: 300;
   }
 }
