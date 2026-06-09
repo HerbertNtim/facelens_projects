@@ -1,6 +1,3 @@
-# BACKEND
-/backend/__pycache__
-/backend/fast_venv
 
 # FRONTEND
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
@@ -46,3 +43,6 @@
 /frontend/next-env.d.ts
 
 .vscode
+.venv
+
+/backend/__pycache__
