@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -16,17 +15,16 @@ export default function Home() {
             Explore Projects
           </Link>
         </div>
+
         {/* RIGHT */}
-        <div className="hero-visual">
-          <div className="hero-image-frame">
-            <Image
-              src="/images/hero_image.jpg"
-              alt="FaceLens hero background"
-              fill
-              className="hero-image"
-              priority
-            />
-          </div>
+        <div className="hero-image-frame">
+          <Image
+            src="/images/image_1.jpg"
+            alt="FaceLens hero background"
+            fill
+            className="hero-image"
+            priority
+          />
         </div>
       </section>
     </main>
