@@ -5,20 +5,18 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <main className="wrapper container">
-      <section className="wrapper flex ">
-        <div className="hero-copy">
+      <section className="wrapper flex gap-8 sm:gap-12 items-center">
+        {/* LEFT */}
+        <div className="hero-text">
           <h1 className="hero-title">
-            Meet Facelens <span></span> Your Gateway to Stunning Web Experiences
+            Meet Facelens <span>—</span> Your Gateway to Stunning Web
+            Experiences
           </h1>
-          <div className="hero-cta-group">
-            <Button asChild variant="hero" size="lg">
-              <Link href="/projects">
-                Explore Projects
-              </Link>
-            </Button>
-          </div>
+          <Link href="/projects" className="hero-cta-primary">
+            Explore Projects
+          </Link>
         </div>
-
+        {/* RIGHT */}
         <div className="hero-visual">
           <div className="hero-image-frame">
             <Image
@@ -28,7 +26,6 @@ export default function Home() {
               className="hero-image"
               priority
             />
-            <div className="hero-image-overlay" />
           </div>
         </div>
       </section>

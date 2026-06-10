@@ -175,7 +175,7 @@
     @apply max-w-7xl px-5 mx-auto w-full;
   }
   .container {
-    @apply pt-23.5 pb-18 min-h-screen;
+    @apply pt-23.5 pb-18;
   }
   .logo-icon {
     @apply hidden sm:inline-block;
@@ -185,42 +185,27 @@
     filter: invert(1) brightness(1.25);
   }
   .logo-text {
-    @apply text-lg sm:text-2xl font-bold;
+    @apply text-lg sm:text-2xl font-sans font-bold;
   }
   .nav-link {
-    @apply text-lg font-normal text-muted-foreground transition-colors hover:text-foreground;
+    @apply text-lg font-sans font-normal text-muted-foreground transition-colors hover:text-foreground;
   }
   .dark .nav-link {
     color: var(--muted-foreground);
   }
-  .hero-copy {
-    @apply w-full max-w-xl;
+  .hero-text {
+    @apply flex flex-col pt-32 sm:pt-48 gap-6 font-sans;
   }
-
-  .hero-badge {
-    @apply inline-flex rounded-full bg-cta/15 px-4 py-2 text-sm font-semibold uppercase tracking-[0.24em] text-cta;
-  }
-
   .hero-title {
-    @apply mt-8 text-2xl font-bold leading-relaxed tracking-wide text-foreground sm:text-5xl md:text-6xl;
-    letter-spacing: 0.05em;
+    @apply mt-8 text-2xl leading-loose tracking-wide text-foreground sm:text-4xl;
+    letter-spacing: 0.03em;
   }
 
   .hero-title span {
-    @apply inline-block mx-2 text-center;
-    width: 1.5em;
-    height: 0.1em;
-    background: currentColor;
-    display: inline-block;
-    margin: 0 0.5em;
+    @apply inline-block mx-2 text-center rounded-full;
   }
-
-  .hero-cta-group {
-    @apply mt-10 flex flex-col gap-4 sm:flex-row w-fit;
-  }
-
   .hero-cta-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-cta px-8 py-3 text-base font-semibold text-cta-foreground shadow-lg shadow-cta/20 transition hover:bg-cta/90;
+    @apply w-fit bg-cta px-6 py-4 text-lg font-sans font-semibold rounded-md text-cta-foreground shadow-lg shadow-cta/20 transition hover:bg-cta/90;
   }
 
   .hero-visual {
@@ -233,9 +218,5 @@
 
   .hero-image {
     @apply object-cover;
-  }
-
-  .hero-image-overlay {
-    @apply pointer-events-none absolute inset-0 bg-linear-to-t from-background/95 via-transparent to-transparent dark:from-background/95;
   }
 }
