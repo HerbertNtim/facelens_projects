@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,10 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased",)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body>
+         <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

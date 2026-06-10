@@ -9,8 +9,9 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Image from "next/image";
 
-export function Navbar() {
+export default function Navbar() {
   const { theme, setTheme } = useTheme();
 
   const navItems = [
@@ -32,10 +33,13 @@ export function Navbar() {
           href="/"
           className="flex items-center gap-2 font-bold text-xl"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            F
-          </div>
-          <span>FaceLens</span>
+          <Image 
+            src={'/images/logo.png'}
+            alt="logo"
+            width={28}
+            height={28}
+          />
+          <span>faceLens</span>
         </Link>
 
         {/* Desktop Navigation */}
