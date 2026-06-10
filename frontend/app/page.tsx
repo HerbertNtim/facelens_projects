@@ -2,7 +2,7 @@
 export default async function Home() {
   return (
     <>
-      <div className="font-sans text-5xl font-black">dunked.</div>
+      <div className="font-sans text-2xl font-bold">facelens</div>
     </>
   );
 }
