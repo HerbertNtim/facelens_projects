@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="hero-page">
-      <section className="hero-section">
+    <main className="wrapper container">
+      <section className="wrapper flex ">
         <div className="hero-copy">
           <h1 className="hero-title">
             Meet Facelens <span></span> Your Gateway to Stunning Web Experiences

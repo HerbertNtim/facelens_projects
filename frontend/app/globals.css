@@ -171,9 +171,6 @@
   .dark .navbar {
     background: var(--background-alt);
   }
-  .navbar-height {
-    @apply h-20;
-  }
   .wrapper {
     @apply max-w-7xl px-5 mx-auto w-full;
   }
@@ -196,15 +193,6 @@
   .dark .nav-link {
     color: var(--muted-foreground);
   }
-
-  .hero-page {
-    @apply min-h-screen bg-background text-foreground;
-  }
-
-  .hero-section {
-    @apply mx-auto flex min-h-screen max-w-7xl flex-col items-start justify-center gap-12 px-5 py-16 md:flex-row md:items-center md:gap-24;
-  }
-
   .hero-copy {
     @apply w-full max-w-xl;
   }
