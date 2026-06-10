@@ -38,40 +38,32 @@
 }
 
 @font-face {
-  font-family: 'Neue Haas Unica';
-  src: url('/fonts/NeueHaasUnica-Regular.woff2') format('woff2');
+  font-family: "Neue Haas Unica";
+  src: url("/fonts/NeueHaasUnica-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Neue Haas Unica';
-  src: url('/fonts/NeueHaasUnica-Medium.woff2') format('woff2');
+  font-family: "Neue Haas Unica";
+  src: url("/fonts/NeueHaasUnica-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Neue Haas Unica';
-  src: url('/fonts/NeueHaasUnica-Bold.woff2') format('woff2');
+  font-family: "Neue Haas Unica";
+  src: url("/fonts/NeueHaasUnica-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Neue Haas Unica';
-  src: url('/fonts/NeueHaasUnica-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Neue Haas Unica';
-  src: url('/fonts/NeueHaasUnica-Black.woff2') format('woff2');
+  font-family: "Neue Haas Unica";
+  src: url("/fonts/NeueHaasUnica-Black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -84,8 +76,9 @@
   --radius: 0.625rem;
 
   /* Core palette */
-  --background: #ffffff;
-  --background-alt: #e1e3e2; /* secondary section bg */
+  --background: #f8fafb;
+  --background-alt: #ffffff;
+  --bg-secondary: #e1e3e2; /* secondary section bg */
   --card: #efefef;
   --foreground: #13161b; /* main text */
   --muted-foreground: #c6c7c8; /* descriptions / captions */
@@ -123,6 +116,7 @@
   /* Core palette */
   --background: #131416; /* main section bg  (was "1311616" — assumed typo) */
   --background-alt: #131416; /* same dark bg for alt sections */
+  --bg-secondary: #191c20;
   --card: #191c20;
   --foreground: #ffffff; /* main text */
   --muted-foreground: #545659; /* descriptions / captions */
@@ -163,5 +157,60 @@
   body {
     @apply bg-background text-foreground;
     font-weight: 300;
+  }
+}
+
+@layer utilities {
+  /* ═══════════════════════════════════════
+   NAVBAR 
+   ═══════════════════════════════════════ */
+  .navbar {
+    @apply w-full fixed z-50;
+    background: var(--background-alt);
+  }
+  .dark .navbar {
+    background: var(--background-alt);
+  }
+  .wrapper {
+    @apply max-w-7xl px-5 mx-auto w-full;
+  }
+
+  .logo-icon {
+    @apply hidden sm:inline-block;
+    filter: none;
+  }
+  .dark .logo-icon {
+    filter: invert(1) brightness(1.25);
+  }
+  .logo-text {
+    @apply text-lg sm:text-2xl font-sans font-bold;
+  }
+  .nav-link {
+    @apply text-lg font-sans font-normal text-muted-foreground transition-colors hover:text-foreground;
+  }
+  .dark .nav-link {
+    color: var(--muted-foreground);
+  }
+  .hero-text {
+    @apply flex flex-col pt-32 sm:pt-48 gap-6 font-sans;
+  }
+  .hero-title {
+    @apply mt-8 text-2xl leading-loose tracking-wide text-foreground sm:text-4xl;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-title span {
+    @apply inline-block mx-2 text-center rounded-full;
+  }
+  .hero-cta-primary {
+    @apply w-fit bg-cta px-6 py-4 text-lg font-sans font-semibold rounded-md text-cta-foreground shadow-lg shadow-cta/20 transition hover:bg-cta/90;
+  }
+
+  .hero-image-frame {
+    @apply relative hidden shrink-0 w-1/2 aspect-4/3 rounded-2xl overflow-hidden;
+  }
+
+  .hero-image {
+    @apply object-cover;
   }
 }
