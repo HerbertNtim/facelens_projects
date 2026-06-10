@@ -165,7 +165,14 @@
    NAVBAR 
    ═══════════════════════════════════════ */
   .navbar {
-    @apply w-full fixed z-50 bg-(--bg-secondary);
+    @apply w-full fixed z-50;
+    background: var(--background-alt);
+  }
+  .dark .navbar {
+    background: var(--background-alt);
+  }
+  .navbar-height {
+    @apply h-20;
   }
   .wrapper {
     @apply max-w-7xl px-5 mx-auto w-full;
@@ -177,6 +184,9 @@
     @apply text-2xl font-bold hidden sm:block;
   }
   .nav-link {
-  @apply text-lg font-normal text-gray-500 transition-colors hover:text-foreground;
+    @apply text-lg font-normal text-muted-foreground transition-colors hover:text-foreground;
+  }
+  .dark .nav-link {
+    color: var(--muted-foreground);
   }
 }

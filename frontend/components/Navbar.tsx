@@ -31,7 +31,7 @@ export default function Navbar() {
             alt="FaceLens Logo"
             width={20}
             height={20}
-            className="drop-shadow-sm"
+            className="drop-shadow-sm dark:text-invert"
           />
           <span className="logo-text">facelens</span>
         </Link>
@@ -46,17 +46,17 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-3">
           <Button
             variant="ghost"
-            size="icon"
+            size="icon-lg"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="cursor-pointer"
           >
             {theme === "dark" ? (
-              <Sun className="h-15 w-15" />
+              <Sun className="h-6 w-6" />
             ) : (
-              <Moon className="h-15 w-15" />
+              <Moon className="h-6 w-6" />
             )}
           </Button>
         </div>
@@ -65,27 +65,28 @@ export default function Navbar() {
         <div className="flex items-center gap-2 md:hidden">
           <Button
             variant="ghost"
-            size="icon"
+            size="icon-lg"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="relative"
           >
-            <Sun className="h-15 w-15 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <Sun className="h-6 w-6 transition-all duration-200 dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute inset-0 h-6 w-6 rotate-90 scale-0 transition-all duration-200 dark:rotate-0 dark:scale-100" />
           </Button>
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon-lg">
+                <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right">
-              <div className="mt-8 flex flex-col gap-6">
+            <SheetContent side="right" className="w-[min(85vw,360px)]">
+              <div className="mt-10 flex flex-col gap-6 px-6">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="text-lg font-medium"
+                    className="text-lg font-medium text-foreground transition hover:text-cta"
                   >
                     {item.label}
                   </Link>
