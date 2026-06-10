@@ -76,7 +76,8 @@
   --radius: 0.625rem;
 
   /* Core palette */
-  --bg-secondary: #ffffff;
+  --background: #f8fafb;
+  --background-alt: #ffffff;
   --bg-secondary: #e1e3e2; /* secondary section bg */
   --card: #efefef;
   --foreground: #13161b; /* main text */
@@ -115,6 +116,7 @@
   /* Core palette */
   --background: #131416; /* main section bg  (was "1311616" — assumed typo) */
   --background-alt: #131416; /* same dark bg for alt sections */
+  --bg-secondary: #191c20;
   --card: #191c20;
   --foreground: #ffffff; /* main text */
   --muted-foreground: #545659; /* descriptions / captions */
