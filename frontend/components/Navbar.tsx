@@ -4,11 +4,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 
 export default function Navbar() {
@@ -26,20 +22,18 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="navbar">
+      <div className="wrapper navbar-height py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-xl"
-        >
-          <Image 
-            src={'/images/logo.png'}
-            alt="logo"
-            width={28}
-            height={28}
+        <Link href="/" className="flex items-center gap-1">
+          <Image
+            src="/images/innovation-logo.png"
+            alt="FaceLens Logo"
+            width={20}
+            height={20}
+            className="drop-shadow-sm"
           />
-          <span>faceLens</span>
+          <span className="logo-text">facelens</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -48,7 +42,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              className="nav-link"
             >
               {item.label}
             </Link>
@@ -60,9 +54,7 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() =>
-              setTheme(theme === "dark" ? "light" : "dark")
-            }
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -74,9 +66,7 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() =>
-              setTheme(theme === "dark" ? "light" : "dark")
-            }
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

@@ -76,8 +76,8 @@
   --radius: 0.625rem;
 
   /* Core palette */
-  --background: #ffffff;
-  --background-alt: #e1e3e2; /* secondary section bg */
+  --bg-secondary: #ffffff;
+  --bg-secondary: #e1e3e2; /* secondary section bg */
   --card: #efefef;
   --foreground: #13161b; /* main text */
   --muted-foreground: #c6c7c8; /* descriptions / captions */
@@ -155,5 +155,26 @@
   body {
     @apply bg-background text-foreground;
     font-weight: 300;
+  }
+}
+
+@layer utilities {
+  /* ═══════════════════════════════════════
+   NAVBAR 
+   ═══════════════════════════════════════ */
+  .navbar {
+    @apply w-full fixed z-50 bg-(--bg-secondary);
+  }
+  .wrapper {
+    @apply max-w-7xl px-5 mx-auto w-full;
+  }
+  .container {
+    @apply pt-23.5 pb-18 min-h-screen;
+  }
+  .logo-text {
+    @apply text-2xl font-bold hidden sm:block;
+  }
+  .nav-link {
+  @apply text-lg font-normal text-gray-500 transition-colors hover:text-foreground;
   }
 }
