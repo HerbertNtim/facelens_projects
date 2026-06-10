@@ -180,8 +180,15 @@
   .container {
     @apply pt-23.5 pb-18 min-h-screen;
   }
+  .logo-icon {
+    @apply hidden sm:inline-block;
+    filter: none;
+  }
+  .dark .logo-icon {
+    filter: invert(1) brightness(1.25);
+  }
   .logo-text {
-    @apply text-2xl font-bold hidden sm:block;
+    @apply text-lg sm:text-2xl font-bold;
   }
   .nav-link {
     @apply text-lg font-normal text-muted-foreground transition-colors hover:text-foreground;
@@ -212,16 +219,12 @@
   }
 
   .hero-title span {
-    @apply inline-block mx-2;
+    @apply inline-block mx-2 text-center;
     width: 1.5em;
     height: 0.1em;
     background: currentColor;
     display: inline-block;
     margin: 0 0.5em;
-  }
-
-  .hero-description {
-    @apply mt-6 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl;
   }
 
   .hero-cta-group {
@@ -232,12 +235,8 @@
     @apply inline-flex items-center justify-center rounded-full bg-cta px-8 py-3 text-base font-semibold text-cta-foreground shadow-lg shadow-cta/20 transition hover:bg-cta/90;
   }
 
-  .hero-cta-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-border bg-transparent px-4 py-2 text-base font-semibold text-foreground transition hover:bg-muted/70 dark:hover:bg-input/70;
-  }
-
   .hero-visual {
-    @apply hidden sm:relative w-full overflow-hidden rounded-4xl border border-border bg-muted shadow-2xl shadow-black/5 md:max-w-2xl;
+    @apply hidden sm:block w-full overflow-hidden rounded-4xl border border-border bg-muted shadow-2xl shadow-black/5 md:max-w-2xl;
   }
 
   .hero-image-frame {

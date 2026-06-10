@@ -31,7 +31,7 @@ export default function Navbar() {
             alt="FaceLens Logo"
             width={20}
             height={20}
-            className="drop-shadow-sm dark:text-invert"
+            className="logo-icon drop-shadow-sm"
           />
           <span className="logo-text">facelens</span>
         </Link>

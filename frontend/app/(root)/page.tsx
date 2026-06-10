@@ -8,7 +8,7 @@ export default function Home() {
       <section className="hero-section">
         <div className="hero-copy">
           <h1 className="hero-title">
-            Meet Facelens <span>-</span> Your Gateway to Stunning Web Experiences
+            Meet Facelens <span></span> Your Gateway to Stunning Web Experiences
           </h1>
           <div className="hero-cta-group">
             <Button asChild variant="hero" size="lg">
