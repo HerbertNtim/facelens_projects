@@ -161,6 +161,10 @@
 }
 
 @layer utilities {
+  .wrapper {
+    @apply px-10 mx-auto;
+  }
+
   /* ═══════════════════════════════════════
    NAVBAR 
    ═══════════════════════════════════════ */
@@ -168,13 +172,6 @@
     @apply w-full fixed z-50;
     background: var(--background-alt);
   }
-  .dark .navbar {
-    background: var(--background-alt);
-  }
-  .wrapper {
-    @apply max-w-7xl px-5 mx-auto w-full;
-  }
-
   .logo-icon {
     @apply hidden sm:inline-block;
     filter: none;
@@ -186,7 +183,7 @@
     @apply text-lg sm:text-2xl font-sans font-bold;
   }
   .nav-link {
-    @apply text-lg font-sans font-normal text-muted-foreground transition-colors hover:text-foreground;
+  @apply text-lg font-sans font-normal hover:text-muted-foreground transition-colors text-foreground leading-loose;
   }
   .dark .nav-link {
     color: var(--muted-foreground);
