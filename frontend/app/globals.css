@@ -191,26 +191,5 @@
   .dark .nav-link {
     color: var(--muted-foreground);
   }
-  .hero-text {
-    @apply flex flex-col pt-32 sm:pt-48 gap-6 font-sans;
-  }
-  .hero-title {
-    @apply mt-8 text-2xl leading-loose tracking-wide text-foreground sm:text-4xl;
-    letter-spacing: 0.03em;
-  }
-
-  .hero-title span {
-    @apply inline-block mx-2 text-center rounded-full;
-  }
-  .hero-cta-primary {
-    @apply w-fit bg-cta px-6 py-4 text-lg font-sans font-semibold rounded-md text-cta-foreground shadow-lg shadow-cta/20 transition hover:bg-cta/90;
-  }
-
-  .hero-image-frame {
-    @apply relative hidden shrink-0 w-1/2 aspect-4/3 rounded-2xl overflow-hidden;
-  }
-
-  .hero-image {
-    @apply object-cover;
-  }
+  
 }
