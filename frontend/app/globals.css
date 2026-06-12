@@ -76,8 +76,8 @@
   --radius: 0.625rem;
 
   /* Core palette */
-  --background: #f8fafb;
-  --background-alt: #ffffff;
+  --bg-light: #f8fafb;
+  --bg-light-alt: #ffffff;
   --bg-secondary: #e1e3e2; /* secondary section bg */
   --card: #efefef;
   --foreground: #13161b; /* main text */
@@ -114,9 +114,8 @@
    ═══════════════════════════════════════ */
 .dark {
   /* Core palette */
-  --background: #131416; /* main section bg  (was "1311616" — assumed typo) */
-  --background-alt: #131416; /* same dark bg for alt sections */
-  --bg-secondary: #191c20;
+  --bg-dark: #131416; /* main section bg  (was "1311616" — assumed typo) */
+  --bg-dark-alt: #191c20;
   --card: #191c20;
   --foreground: #ffffff; /* main text */
   --muted-foreground: #545659; /* descriptions / captions */
@@ -169,8 +168,7 @@
    NAVBAR 
    ═══════════════════════════════════════ */
   .navbar {
-    @apply w-full fixed z-50;
-    background: var(--background-alt);
+    @apply w-full fixed z-50 bg-(--bg-light) dark:bg-(--bg-dark);
   }
   .logo-icon {
     @apply hidden sm:inline-block;

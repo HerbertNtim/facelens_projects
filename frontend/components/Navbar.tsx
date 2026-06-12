@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <header className="wrapper navbar">
-      <div className="h-20 py-4 flex justify-between items-center">
+      <div className="h-16 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-1">
           <Image
