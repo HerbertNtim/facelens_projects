@@ -181,10 +181,7 @@
     @apply text-lg sm:text-2xl font-sans font-bold;
   }
   .nav-link {
-    @apply text-lg font-sans font-normal hover:text-muted-foreground transition-colors text-foreground leading-loose;
-  }
-  .dark .nav-link {
-    color: var(--muted-foreground);
+    @apply text-lg font-sans font-normal text-muted-foreground hover:text-foreground transition-colors dark:hover:text-foreground leading-loose;
   }
 
   /* PAGES */
