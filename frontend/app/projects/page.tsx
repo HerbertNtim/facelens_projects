@@ -1,7 +1,6 @@
 import Heading from '@/components/Heading';
 import SingleFeature from '@/components/ProjectCard';
 import { projects } from '@/lib/constants';
-import React from 'react'
 
 const Projects = () => {
   return (

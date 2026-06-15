@@ -4,7 +4,7 @@ const SingleFeature = ({ title, icon, description }: { title: string, icon: JSX.
 
   return (
     <div className="w-full">
-      <div className="wow fadeInUp" data-wow-delay=".15s">
+      <div className="">
         <div className="bg-blue-200 text-primary mb-10 flex h-17.5 w-17.5 items-center justify-center rounded-md">
           {icon}
         </div>
