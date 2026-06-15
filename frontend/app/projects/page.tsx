@@ -14,10 +14,11 @@ const Projects = () => {
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <SingleFeature 
-                key={project.title} 
+                key={project.slug} 
                 title={project.title} 
                 icon={project.icon} 
                 description={project.description} 
+                slug={project.slug}
               />
             ))}
           </div>
