@@ -205,4 +205,32 @@
   .btn-secondary {
     @apply inline-block rounded-xs bg-foreground hover:bg-foreground/80 px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out dark:bg-white/10 dark:text-white dark:hover:bg-white/5;
   }
+
+  .workflow-section {
+    @apply mx-auto max-w-4xl px-4 py-8 sm:py-12 lg:py-16;
+  }
+
+  .workflow-panel {
+    @apply rounded-3xl border border-border bg-card p-6 shadow-sm dark:bg-secondary dark:border-input;
+  }
+
+  .workflow-grid {
+    @apply grid gap-4 sm:grid-cols-3;
+  }
+
+  .workflow-card {
+    @apply flex flex-col items-center text-center rounded-3xl border border-border bg-background-alt p-6 shadow-sm transition duration-300 dark:bg-secondary dark:border-input;
+  }
+
+  .workflow-badge {
+    @apply mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-semibold;
+  }
+
+  .workflow-title {
+    @apply font-semibold text-lg text-foreground dark:text-foreground;
+  }
+
+  .workflow-text {
+    @apply mt-2 text-sm leading-relaxed text-muted-foreground dark:text-muted-foreground;
+  }
 }

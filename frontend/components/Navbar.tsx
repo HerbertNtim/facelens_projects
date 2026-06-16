@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const currentTheme = theme || "light";
 
   const navItems = [
     {
