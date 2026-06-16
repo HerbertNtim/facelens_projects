@@ -12,12 +12,8 @@ export default function Navbar() {
 
   const navItems = [
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Contact",
-      href: "/contact",
+      label: "Gender",
+      href: "/gender",
     },
   ];
 
@@ -54,9 +50,9 @@ export default function Navbar() {
             className="cursor-pointer h-12 w-12"
           >
             {theme === "dark" ? (
-              <Sun className='w-8 h-8' />
+              <Sun size={24} />
             ) : (
-              <Moon className='w-8 h-8' />
+              <Moon size={24} />
             )}
           </Button>
         </div>
@@ -70,9 +66,9 @@ export default function Navbar() {
             className="cursor-pointer h-12 w-12"
           >
             {theme === "dark" ? (
-              <Sun className='w-8 h-8' />
+              <Sun size={24} />
             ) : (
-              <Moon className='w-8 h-8' />
+              <Moon size={24} />
             )}
           </Button>
 
