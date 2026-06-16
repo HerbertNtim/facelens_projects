@@ -30,9 +30,18 @@ const Home = () => {
         <HeroBackground />
       </section>
 
-      <section className="page-section">
-        <div className="container">
+      <section className="py-8 md:py-10 lg:py-12">
+        <div className="mb-16">
           <div className="workflow-section">
+            <div className='text-center mb-12'>
+              <h2 className="text-2xl sm:text-6xl font-semibold mb-2 text-foreground">How It Works</h2>
+              <p className="my-6 text-muted-foreground">
+                This application uses a machine learning model to predict the
+                gender of a person in an uploaded image. The model is run on a
+                backend service that analyzes facial features and returns a
+                probabilistic prediction for Male or Female.
+              </p>
+            </div>
             <div className="workflow-panel">
               <div className="workflow-grid">
                 <div className="workflow-card">
@@ -62,6 +71,12 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link href="/gender" className="btn-primary">
+              Give it a Try
+            </Link>
           </div>
         </div>
       </section>
