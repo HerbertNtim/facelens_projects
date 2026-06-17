@@ -234,12 +234,8 @@
     @apply mt-2 text-sm leading-relaxed text-muted-foreground dark:text-muted-foreground;
   }
 
-  .new-book-wrapper {
-    @apply mx-auto max-w-2xl rounded-3xl border border-border bg-card p-8 shadow-sm backdrop-blur-xl dark:border-input dark:bg-secondary;
-  }
-
   .upload-dropzone {
-    @apply relative flex min-h-[14rem] cursor-pointer flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-border bg-background-alt px-8 py-12 text-center text-foreground transition hover:border-primary hover:bg-accent/5 dark:border-input dark:bg-secondary dark:text-foreground;
+    @apply relative flex min-h-56 cursor-pointer flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-border bg-background-alt px-8 py-12 text-center text-foreground transition hover:border-primary hover:bg-accent/5 dark:border-input dark:bg-secondary dark:text-foreground;
   }
 
   .upload-remove-button {

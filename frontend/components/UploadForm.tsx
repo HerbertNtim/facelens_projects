@@ -113,7 +113,7 @@ const UploadForm = () => {
   }, [toast])
 
   return (
-    <div className="new-book-wrapper">
+    <div className="py-4 overflow-hidden">
       <div className="space-y-8">
         <Form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8">
           <input
