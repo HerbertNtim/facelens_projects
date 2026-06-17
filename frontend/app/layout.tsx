@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ToastProvider, ToastViewport } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,8 +23,11 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
+          <ToastProvider>
+            <Navbar />
+            {children}
+            <ToastViewport />
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>

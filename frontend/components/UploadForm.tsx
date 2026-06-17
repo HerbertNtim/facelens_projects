@@ -1,198 +1,111 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch } from "react-hook-form";
-import { UploadCloud, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import * as React from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, useWatch } from 'react-hook-form'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import { Toast, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from '@/components/ui/toast'
+
+// Import schema and validation types
 import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { z } from "zod";
-import LoadingOverlay from "./LoadingOverlay";
+  genderFormSchema,
+  type GenderFormValues,
+} from '@/lib/uploadFormSchema'
 
-const MAX_FILE_SIZE = 50 * 1024 * 1024;
+// Import custom hooks for form logic
+import { useFilePickerLogic } from '@/lib/useFilePickerLogic'
 
-// Validation schema for the gender form.
-// We use superRefine to validate the uploaded file object
-// and provide custom error messages for missing, oversized,
-// or non-image uploads.
-const genderFormSchema = z
-  .object({
-    imageFile: z.instanceof(File).nullable(),
-  })
-  .superRefine((data, ctx) => {
-    const file = data.imageFile;
+// Import UI components
+import LoadingOverlay from './LoadingOverlay'
+import { UploadDropzone } from './UploadDropzone'
 
-    if (!(file instanceof File)) {
-      ctx.addIssue({
-        path: ["imageFile"],
-        code: "custom",
-        message: "Image file is required",
-      });
-      return;
-    }
-
-    if (file.size > MAX_FILE_SIZE) {
-      ctx.addIssue({
-        path: ["imageFile"],
-        code: "custom",
-        message: "Image file must be 50MB or smaller",
-      });
-    }
-
-    if (!file.type.startsWith("image/")) {
-      ctx.addIssue({
-        path: ["imageFile"],
-        code: "custom",
-        message: "Image file must be a valid image",
-      });
-    }
-  });
-
-type GenderFormValues = z.infer<typeof genderFormSchema>;
-
+/**
+ * UploadForm Component
+ *
+ * Main form component for uploading and processing images.
+ * Handles:
+ * - Form state management with react-hook-form
+ * - File validation with Zod schema
+ * - File picker interaction
+ * - Toast notifications for errors
+ * - Submit state and loading overlay
+ */
 const UploadForm = () => {
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
-  const [toast, setToast] = React.useState<string | null>(null);
-
+  // Initialize the form with validation schema
   const form = useForm<GenderFormValues>({
     resolver: zodResolver(genderFormSchema),
     defaultValues: { imageFile: null },
-    mode: "onTouched",
-  });
+    mode: 'onTouched',
+  })
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
-  } = form;
+  } = form
 
+  // Register the file field with the form
   React.useEffect(() => {
-    register("imageFile");
-  }, [register]);
+    register('imageFile')
+  }, [register])
 
-  // watch the file field to enable/disable the submit button
-  // without storing the full form state in a separate variable.
-  const imageFile = useWatch({ control: form.control, name: "imageFile" });
-  const canSubmit = imageFile instanceof File && !isSubmitting;
+  // Extract custom hooks for cleaner logic separation
+  const { fileInputRef, handleSelectFile, handleRemoveFile, openFilePicker } =
+    useFilePickerLogic(setValue)
 
-  const openFilePicker = () => {
-    fileInputRef.current?.click();
-  };
+  const [toastMessage, setToastMessage] = useState<string>("")
+  const [toastOpen, setToastOpen] = useState(false)
 
-  const handleSelectFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const nextFile = event.target.files?.[0] ?? null;
-    setValue("imageFile", nextFile, { shouldValidate: true });
-  };
+  // Watch the file field to enable/disable the submit button
+  const imageFile = useWatch({ control: form.control, name: 'imageFile' })
+  const canSubmit = imageFile instanceof File && !isSubmitting
 
-  const handleRemoveFile = () => {
-    setValue("imageFile", null, { shouldValidate: true });
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
+  /**
+   * Handle form submission.
+   * Simulates a brief processing delay then logs the data for processing.
+   */
   const onSubmit = async (data: GenderFormValues) => {
-    setToast(null);
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    console.log("Begin Synthesis", data);
-  };
+    await new Promise((resolve) => setTimeout(resolve, 900))
+    console.log('Begin Synthesis', data)
+  }
 
-  // Display a toast if validation fails during form submission.
+  /**
+   * Handle form validation errors.
+   * Displays the first error as a toast notification.
+   */
   const onError = (errors: typeof form.formState.errors) => {
-    const nextMessage = errors.imageFile?.message;
-    setToast(
-      typeof nextMessage === "string" ? nextMessage : "Image file is required",
-    );
-  };
+    const nextMessage = errors.imageFile?.message
 
-  React.useEffect(() => {
-    if (!toast) {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => setToast(null), 3600);
-    return () => window.clearTimeout(timeout);
-  }, [toast]);
+    setToastMessage(
+      typeof nextMessage === 'string'
+        ? nextMessage
+        : 'Image file is required',
+    )
+    setToastOpen(true)
+  }
 
   return (
+    <ToastProvider>
     <div className="py-4 overflow-hidden">
       <div className="space-y-8">
         <Form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8">
-          <input
-            id="imageFile"
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="sr-only"
-            onChange={handleSelectFile}
+          {/* Render the upload dropzone component */}
+          <UploadDropzone
+            ref={undefined}
+            fileInputRef={fileInputRef}
+            imageFile={
+              imageFile instanceof File ? imageFile : null
+            }
+            fileError={errors.imageFile?.message}
+            onSelectFile={handleSelectFile}
+            onOpenFilePicker={openFilePicker}
+            onRemoveFile={handleRemoveFile}
           />
 
-          <FormField>
-            <FormItem>
-              <FormLabel htmlFor="imageFile">Image file upload</FormLabel>
-              <FormControl>
-                <div
-                  className="upload-dropzone"
-                  onClick={openFilePicker}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      openFilePicker();
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <UploadCloud className="h-12 w-12 text-amber-500 dark:text-amber-400" />
-                  {imageFile instanceof File ? (
-                    <div className="space-y-2">
-                      <p className="text-lg font-semibold text-foreground dark:text-white">
-                        {imageFile.name}
-                      </p>
-                      <Button
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          handleRemoveFile();
-                        }}
-                        className="upload-remove-button"
-                      >
-                        <X className="h-4 w-4" />
-                        Remove
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <p className="text-lg font-semibold text-foreground dark:text-white">
-                        Click to upload Image
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Image file (max 50MB)
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </FormControl>
-              <FormMessage>
-                {typeof errors.imageFile?.message === "string"
-                  ? errors.imageFile.message
-                  : ""}
-              </FormMessage>
-            </FormItem>
-
-            <div className="upload-note-card">
-              A warm and literary upload space for a single image.
-            </div>
-          </FormField>
-
+          {/* Submit button with loading state */}
           <div className="relative">
             <Button
               className="px-4 py-2 w-full cursor-pointer"
@@ -205,14 +118,20 @@ const UploadForm = () => {
           </div>
         </Form>
 
-        {toast ? (
-          <div className="toast-container" role="status" aria-live="polite">
-            <div className="toast toast-error">{toast}</div>
-          </div>
-        ) : null}
+        <Toast
+          open={toastOpen}
+          onOpenChange={setToastOpen}
+          duration={3600}
+          type="error"
+        >
+          <ToastTitle>Error</ToastTitle>
+          <ToastDescription>{toastMessage}</ToastDescription>
+        </Toast>
+        <ToastViewport />
       </div>
-    </div>
-  );
-};
+    </ToastProvider>
+  )
+}
 
-export default UploadForm;
+export default UploadForm
+
