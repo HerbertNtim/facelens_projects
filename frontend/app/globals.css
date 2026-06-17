@@ -233,4 +233,5 @@
   .workflow-text {
     @apply mt-2 text-sm leading-relaxed text-muted-foreground dark:text-muted-foreground;
   }
+  
 }
