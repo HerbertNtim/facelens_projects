@@ -1,3 +1,5 @@
+import UploadForm from '@/components/UploadForm'
+
 const GenderPage = () => {
   return (
     <main className='wrapper container'>
@@ -8,6 +10,8 @@ const GenderPage = () => {
             Upload an image of a face to predict the gender.
           </p>
         </section>
+
+        <UploadForm />
       </div>
     </main>
   )
