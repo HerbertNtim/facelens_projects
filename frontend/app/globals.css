@@ -235,15 +235,15 @@
   }
 
   .upload-dropzone {
-    @apply relative flex min-h-56 cursor-pointer flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-border bg-background-alt px-8 py-12 text-center text-foreground transition hover:border-primary hover:bg-accent/5 dark:border-input dark:bg-secondary dark:text-foreground;
+    @apply relative flex min-h-56 cursor-pointer flex-col items-center justify-center gap-4 rounded-sm border-2 border-dashed border-border bg-background-alt px-8 py-12 text-center text-foreground transition hover:border-primary hover:bg-accent/5 dark:border-input dark:bg-secondary dark:text-foreground;
   }
 
   .upload-remove-button {
-    @apply inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition hover:bg-slate-100 dark:border-input dark:bg-secondary dark:text-foreground dark:hover:bg-slate-800;
+    @apply inline-flex items-center gap-2 rounded-sm border border-border bg-red-200 px-4 py-2 text-sm font-medium text-foreground transition hover:bg-red-300 dark:border-input dark:text-foreground dark:bg-slate-500 dark:hover:bg-slate-800 cursor-pointer;
   }
 
   .upload-note-card {
-    @apply mt-2 rounded-xl border border-border bg-background-alt p-4 text-sm text-muted-foreground dark:border-input dark:bg-secondary dark:text-muted-foreground;
+    @apply mt-2 rounded-sm border border-border bg-background-alt p-4 text-sm text-muted-foreground dark:border-input dark:bg-secondary text-center dark:text-muted-foreground;
   }
 
   .toast-container {
@@ -259,6 +259,6 @@
   }
 
   .loading-overlay {
-    @apply absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-slate-950/10 backdrop-blur-sm;
+    @apply absolute inset-0 z-20 flex items-center justify-center rounded-sm bg-slate-950/10 backdrop-blur-sm;
   }
 }

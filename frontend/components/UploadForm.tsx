@@ -145,7 +145,7 @@ const UploadForm = () => {
                   {imageFile instanceof File ? (
                     <div className="space-y-2">
                       <p className="text-lg font-semibold text-foreground dark:text-white">{imageFile.name}</p>
-                      <button
+                      <Button
                         type="button"
                         onClick={(event) => {
                           event.stopPropagation()
@@ -155,7 +155,7 @@ const UploadForm = () => {
                       >
                         <X className="h-4 w-4" />
                         Remove
-                      </button>
+                      </Button>
                     </div>
                   ) : (
                     <div className="space-y-2">
@@ -174,7 +174,7 @@ const UploadForm = () => {
           </FormField>
 
           <div className="relative">
-            <Button className="form-btn w-full" type="submit" disabled={!canSubmit}>
+            <Button className="px-4 py-2 w-full cursor-pointer" type="submit" disabled={!canSubmit}>
               Begin Synthesis
             </Button>
             {isSubmitting ? (
