@@ -257,8 +257,28 @@
   .toast-error {
     @apply border-destructive/30 bg-destructive/10 text-destructive;
   }
-
-  .loading-overlay {
-    @apply absolute inset-0 z-20 flex items-center justify-center rounded-sm bg-slate-950/10 backdrop-blur-sm;
+  .loading-wrapper {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-(--bg-card) backdrop-blur-sm;
+  }
+  .loading-shadow-wrapper {
+    @apply rounded-xl p-10 w-fit md:min-w-md;
+  }
+  .loading-shadow {
+    @apply rounded-xl flex flex-col items-center space-y-6;
+  }
+  .loading-animation {
+    @apply animate-spin origin-center mx-auto;
+  }
+  .loading-title {
+    @apply text-2xl font-bold text-(--text-primary) dark:text-(--text-primary);
+  }
+  .loading-progress {
+    @apply w-full space-y-2 text-sm;
+  }
+  .loading-progress-item {
+    @apply flex justify-center items-center space-x-2;
+  }
+  .loading-progress-status {
+    @apply w-2 h-2 text-(--text-secondary) bg-(--success) rounded-full animate-pulse;
   }
 }
