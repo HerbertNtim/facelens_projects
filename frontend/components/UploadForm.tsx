@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { UploadCloud, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
@@ -10,22 +10,48 @@ import { z } from 'zod'
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024
 
-const genderFormSchema = z.object({
-  imageFile: z
-    .union([z.instanceof(File), z.null()])
-    .refine((value) => value instanceof File, { message: 'Image file is required' })
-    .refine((file) => file instanceof File && file.size <= MAX_FILE_SIZE, {
-      message: 'Image file must be 50MB or smaller',
-    })
-    .refine((file) => file instanceof File && file.type.startsWith('image/'), {
-      message: 'Image file must be a valid image',
-    }),
-})
+// Validation schema for the gender form.
+// We use superRefine to validate the uploaded file object
+// and provide custom error messages for missing, oversized,
+// or non-image uploads.
+const genderFormSchema = z
+  .object({
+    imageFile: z.instanceof(File).nullable(),
+  })
+  .superRefine((data, ctx) => {
+    const file = data.imageFile
+
+    if (!(file instanceof File)) {
+      ctx.addIssue({
+        path: ['imageFile'],
+        code: 'custom',
+        message: 'Image file is required',
+      })
+      return
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      ctx.addIssue({
+        path: ['imageFile'],
+        code: 'custom',
+        message: 'Image file must be 50MB or smaller',
+      })
+    }
+
+    if (!file.type.startsWith('image/')) {
+      ctx.addIssue({
+        path: ['imageFile'],
+        code: 'custom',
+        message: 'Image file must be a valid image',
+      })
+    }
+  })
 
 type GenderFormValues = z.infer<typeof genderFormSchema>
 
 const UploadForm = () => {
   const fileInputRef = React.useRef<HTMLInputElement | null>(null)
+  const [toast, setToast] = React.useState<string | null>(null)
 
   const form = useForm<GenderFormValues>({
     resolver: zodResolver(genderFormSchema),
@@ -37,7 +63,6 @@ const UploadForm = () => {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors, isSubmitting },
   } = form
 
@@ -45,7 +70,10 @@ const UploadForm = () => {
     register('imageFile')
   }, [register])
 
-  const imageFile = watch('imageFile')
+  // watch the file field to enable/disable the submit button
+  // without storing the full form state in a separate variable.
+  const imageFile = useWatch({ control: form.control, name: 'imageFile' })
+  const canSubmit = imageFile instanceof File && !isSubmitting
 
   const openFilePicker = () => {
     fileInputRef.current?.click()
@@ -64,24 +92,30 @@ const UploadForm = () => {
   }
 
   const onSubmit = async (data: GenderFormValues) => {
+    setToast(null)
     await new Promise((resolve) => setTimeout(resolve, 900))
     console.log('Begin Synthesis', data)
   }
 
-  return (
-    <div className="new-book-wrapper container mx-auto max-w-2xl rounded-[2.5rem] border border-slate-200 bg-white/90 p-8 shadow-[0_32px_120px_-60px_rgba(15,23,42,0.9)] backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 dark:shadow-none">
-      <div className="space-y-8">
-        <div className="space-y-3">
-          <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">Gender Prediction</p>
-          <h2 className="text-3xl font-semibold leading-tight text-foreground dark:text-white">
-            Bring your portrait into a soft, literary frame
-          </h2>
-          <p className="text-sm leading-7 text-muted-foreground">
-            Upload a single image and let the synthesis begin with an intimate, book-like rhythm.
-          </p>
-        </div>
+  // Display a toast if validation fails during form submission.
+  const onError = (errors: typeof form.formState.errors) => {
+    const nextMessage = errors.imageFile?.message
+    setToast(typeof nextMessage === 'string' ? nextMessage : 'Image file is required')
+  }
 
-        <Form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+  React.useEffect(() => {
+    if (!toast) {
+      return
+    }
+
+    const timeout = window.setTimeout(() => setToast(null), 3600)
+    return () => window.clearTimeout(timeout)
+  }, [toast])
+
+  return (
+    <div className="new-book-wrapper">
+      <div className="space-y-8">
+        <Form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-8">
           <input
             id="imageFile"
             ref={fileInputRef}
@@ -96,7 +130,7 @@ const UploadForm = () => {
               <FormLabel htmlFor="imageFile">Image file upload</FormLabel>
               <FormControl>
                 <div
-                  className="upload-dropzone relative flex min-h-55 cursor-pointer flex-col items-center justify-center gap-4 rounded-4xl border-2 border-dashed border-slate-300 bg-slate-50 px-8 py-12 text-center text-slate-700 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950/80 dark:text-slate-100"
+                  className="upload-dropzone"
                   onClick={openFilePicker}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
@@ -117,7 +151,7 @@ const UploadForm = () => {
                           event.stopPropagation()
                           handleRemoveFile()
                         }}
-                        className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                        className="upload-remove-button"
                       >
                         <X className="h-4 w-4" />
                         Remove
@@ -131,20 +165,20 @@ const UploadForm = () => {
                   )}
                 </div>
               </FormControl>
-              <FormMessage>{errors.imageFile?.message}</FormMessage>
+              <FormMessage>{typeof errors.imageFile?.message === 'string' ? errors.imageFile.message : ''}</FormMessage>
             </FormItem>
 
-            <div className="mt-2 rounded-3xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+            <div className="upload-note-card">
               A warm and literary upload space for a single image.
             </div>
           </FormField>
 
           <div className="relative">
-            <Button className="form-btn w-full" type="submit" disabled={isSubmitting}>
+            <Button className="form-btn w-full" type="submit" disabled={!canSubmit}>
               Begin Synthesis
             </Button>
             {isSubmitting ? (
-              <div className="loading-overlay absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-slate-950/10 backdrop-blur-sm">
+              <div className="loading-overlay">
                 <div className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white/95 px-6 py-5 text-slate-900 shadow-lg dark:border-slate-700 dark:bg-slate-950/90 dark:text-white">
                   <span className="h-9 w-9 animate-spin rounded-full border-4 border-transparent border-t-primary" />
                   <p className="text-sm font-medium">Weaving your image into the narrative…</p>
@@ -153,6 +187,12 @@ const UploadForm = () => {
             ) : null}
           </div>
         </Form>
+
+        {toast ? (
+          <div className="toast-container" role="status" aria-live="polite">
+            <div className="toast toast-error">{toast}</div>
+          </div>
+        ) : null}
       </div>
     </div>
   )
