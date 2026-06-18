@@ -54,7 +54,8 @@ const UploadForm = () => {
 
   const onSubmit = async (data: GenderFormValues) => {
     await new Promise((resolve) => setTimeout(resolve, 900))
-    console.log('Begin Synthesis', data)
+    localStorage.setItem('imageFile', data.imageFile?.name ?? '')
+    console.log('Form submitted with data:', data)
   }
 
   return (

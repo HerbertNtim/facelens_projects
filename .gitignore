@@ -23,6 +23,7 @@ frontend/.yarn/*
 # BACKEND (FastAPI)
 # ======================
 backend/__pycache__/
+backend/app/__pycache__/
 backend/*.pyc
 backend/venv/
 .venv/
