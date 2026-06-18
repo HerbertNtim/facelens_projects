@@ -46,6 +46,7 @@ export default function FileUploader({
             type="file"
             accept="image/*"
             className="sr-only"
+            name="imageFile"
             onChange={onSelectFile}
           />
 
