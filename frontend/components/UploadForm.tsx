@@ -43,7 +43,7 @@ const UploadForm = () => {
   }
 
   const handleRemoveFile = () => {
-    setValue('imageFile', null, { shouldValidate: true })
+    setValue('imageFile', null, { shouldValidate: false })
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
