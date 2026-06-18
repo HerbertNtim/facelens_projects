@@ -16,3 +16,9 @@ export async function getImage() {
     IMAGE_STORAGE_ID
   )
 }
+
+export async function removeImage() {
+  await database.uploads.delete(
+    IMAGE_STORAGE_ID
+  )
+}

@@ -23,3 +23,9 @@ export interface PredictionState {
 export interface ApiError {
   detail: string
 }
+
+export interface GenderSession {
+  image: string; // base64 or objectURL
+  prediction: PredictionResponse;
+  createdAt: string;
+}
