@@ -93,7 +93,7 @@ export default function FileUploader({
       </FormItem>
 
       <div className="upload-note-card">
-        A warm and literary upload space for a single image.
+        A warm and literary upload space for a single image. Check the Image preview below.
       </div>
     </FormField>
   )
