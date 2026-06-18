@@ -1,9 +1,16 @@
-// lib/db.ts
-
 import Dexie from 'dexie'
+import type { StoredImage } from '@/types'
 
-export const db = new Dexie('gender-ai')
+class GenderAIDatabase extends Dexie {
+  uploads!: Dexie.Table<StoredImage, number>
 
-db.version(1).stores({
-  uploads: 'id',
-})How
+  constructor() {
+    super('gender-ai-db')
+
+    this.version(1).stores({
+      uploads: 'id',
+    })
+  }
+}
+
+export const database = new GenderAIDatabase()
