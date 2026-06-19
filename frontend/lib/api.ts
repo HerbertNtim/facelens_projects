@@ -9,7 +9,7 @@ export async function predictGender(
   formData.append('file', file)
 
   const response = await fetch(
-    `${API_URL}/predict`,
+    `${API_URL}/predict-gender`,
     {
       method: 'POST',
       body: formData,
