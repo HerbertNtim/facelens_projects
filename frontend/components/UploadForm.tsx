@@ -9,10 +9,9 @@ import {
   genderFormSchema,
   type GenderFormValues,
 } from "@/lib/uploadFormSchema";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { fileToBase64 } from "@/lib/services/file-to-base64";
-import { getSession, saveSession } from "@/lib/actions/session-storage";
+import Database from "@/lib/database";
 
 const UploadForm = () => {
   const form = useForm<GenderFormValues>({
@@ -22,7 +21,6 @@ const UploadForm = () => {
   });
 
   const {
-    register,
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
@@ -32,94 +30,62 @@ const UploadForm = () => {
   const [previewURL, setPreviewURL] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    register("imageFile");
-    const session = getSession();
-
-    if (!session) return;
-
-    const timeoutId = window.setTimeout(() => {
-      setPreviewURL(session.image);
-      setValue("imageFile", new File([], "session_image"), {
-        shouldValidate: true,
-      });
-    }, 0);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [register, setValue]);
-
   const openFilePicker = () => {
     fileInputRef.current?.click();
   };
 
   const handleSelectFile = async (
-  event: React.ChangeEvent<HTMLInputElement>
-) => {
-  const file =
-    event.target.files?.[0]
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
 
-  if (!file) return
+    if (!file) return;
 
-  setValue(
-    'imageFile',
-    file,
-    {
+    setValue("imageFile", file, {
       shouldValidate: true,
-    }
-  )
+    });
+  };
 
-}
-
-  const handleRemoveFile =
-  async () => {
-    setValue(
-      'imageFile',
-      null
-    )
+  const handleRemoveFile = async () => {
+    setValue("imageFile", null);
 
     setPreviewURL(null);
-  }
+  };
 
   const imageFile = useWatch({ control, name: "imageFile" });
   const canSubmit = imageFile instanceof File && !isSubmitting;
 
   const onSubmit = async (data: GenderFormValues) => {
-  if (!data.imageFile) return;
+    if (!data.imageFile) return;
 
-  try {
-    const formData = new FormData();
-    formData.append("file", data.imageFile); // IMPORTANT: match FastAPI name
+    try {
+      // 1. Send to API (Keep your existing logic)
+      const formData = new FormData();
+      formData.append("file", data.imageFile); // IMPORTANT: match FastAPI name
 
-    const response = await fetch(
-      "http://localhost:8000/gender",
-      {
+      const response = await fetch("http://localhost:8000/gender", {
         method: "POST",
         body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
       }
-    );
 
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.statusText}`);
+      const result = await response.json();
+      
+      // Save to Dexie
+      await Database.images.add({
+        imageFile: data.imageFile,
+        prediction: result,
+        createdAt: new Date(),
+      })
+
+      console.log("Session saved:", result);
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
-
-    const result = await response.json();
-
-    // Convert image → persistable format
-    const base64Image = await fileToBase64(data.imageFile);
-    const createdAt = new Date().toISOString();
-
-    // SAVE FULL SESSION
-    saveSession({
-      image: base64Image,
-      prediction: result,
-      createdAt,
-    });
-
-    console.log("Session saved:", result);
-  } catch (error) {
-    console.error("Error submitting form:", error);
-  }
-};
+  };
 
   return (
     <section className="flex flex-col mx-auto px-4">

@@ -1,18 +1,19 @@
-import Dexie, { EntityTable } from "dexie";
+// db.ts
+import Dexie, { EntityTable } from 'dexie';
 
-export interface ImageRecord {
+export interface SessionRecord {
   id?: number;
-  file: File;
-  imageData: Blob;
+  imageFile: File;
+  prediction: unknown; // Critical: Store as Blob, do NOT index
   createdAt: Date;
 }
 
-const Database = new Dexie("FaceLensDB") as Dexie & {
-  images: EntityTable<ImageRecord, "id">;
+const Database = new Dexie('NextFormDB') as Dexie & {
+  images: EntityTable<SessionRecord, 'id'>;
 };
 
 Database.version(1).stores({
-  images: "++id, file, imageData, createdAt",
+  images: '++id, createdAt' // 'imageData' is omitted to prevent indexing errors
 });
 
-export default Database;
+export default Database;   
