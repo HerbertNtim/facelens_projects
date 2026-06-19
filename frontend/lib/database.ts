@@ -1,16 +1,18 @@
-import Dexie from 'dexie'
-import type { StoredImage } from '@/types'
+import Dexie, { EntityTable } from "dexie";
 
-class GenderAIDatabase extends Dexie {
-  uploads!: Dexie.Table<StoredImage, number>
-
-  constructor() {
-    super('gender-ai-db')
-
-    this.version(1).stores({
-      uploads: 'id',
-    })
-  }
+export interface ImageRecord {
+  id?: number;
+  file: File;
+  imageData: Blob;
+  createdAt: Date;
 }
 
-export const database = new GenderAIDatabase()
+const Database = new Dexie("FaceLensDB") as Dexie & {
+  images: EntityTable<ImageRecord, "id">;
+};
+
+Database.version(1).stores({
+  images: "++id, file, imageData, createdAt",
+});
+
+export default Database;

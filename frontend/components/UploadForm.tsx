@@ -11,7 +11,6 @@ import {
 } from "@/lib/uploadFormSchema";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useImageStorage } from "@/hooks/useImageStorage";
 import { fileToBase64 } from "@/lib/services/file-to-base64";
 import { getSession, saveSession } from "@/lib/actions/session-storage";
 
@@ -32,7 +31,6 @@ const UploadForm = () => {
 
   const [previewURL, setPreviewURL] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { save, remove } = useImageStorage();
 
   useEffect(() => {
     register("imageFile");
@@ -70,7 +68,6 @@ const UploadForm = () => {
     }
   )
 
-  await save(file)
 }
 
   const handleRemoveFile =
@@ -81,7 +78,6 @@ const UploadForm = () => {
     )
 
     setPreviewURL(null);
-    await remove()
   }
 
   const imageFile = useWatch({ control, name: "imageFile" });
