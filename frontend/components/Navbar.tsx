@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 
 export default function Navbar() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   const navItems = [
     {
@@ -46,13 +46,13 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="lg"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
             className="cursor-pointer h-12 w-12"
           >
-            {theme === "dark" ? (
-              <Sun size={24} />
+            {resolvedTheme === 'dark' ? (
+              <Sun size={24}  />
             ) : (
-              <Moon size={24} />
+              <Moon size={24}  />
             )}
           </Button>
         </div>
@@ -62,10 +62,10 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon-lg"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             className="cursor-pointer h-12 w-12"
           >
-            {theme === "dark" ? (
+            {resolvedTheme === "dark" ? (
               <Sun size={24} />
             ) : (
               <Moon size={24} />

@@ -100,26 +100,7 @@ const UploadForm = () => {
   const onSubmit = async (data: GenderFormValues) => {
     if (!data.imageFile) return;
 
-    try {
-      // 1. Send to API (Keep your existing logic)
-      const formData = new FormData();
-      formData.append("file", data.imageFile); // IMPORTANT: match FastAPI name
-
-      const response = await fetch("http://localhost:8000/gender", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
-      }
-
-      const result = await response.json();
-
-      console.log("Session saved:", result);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+    console.log("Submitting form with image file:", data.imageFile);
   };
 
   useEffect(() => {
