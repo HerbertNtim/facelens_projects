@@ -9,7 +9,7 @@ import {
   genderFormSchema,
   type GenderFormValues,
 } from "@/lib/uploadFormSchema";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Database from "@/lib/database";
 
@@ -37,19 +37,61 @@ const UploadForm = () => {
   const handleSelectFile = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const file = event.target.files?.[0];
+    try {
+      const file = event.target.files?.[0];
 
-    if (!file) return;
+      if (!file) return;
 
-    setValue("imageFile", file, {
-      shouldValidate: true,
-    });
+      // Update form state
+      setValue("imageFile", file, {
+        shouldValidate: true,
+      });
+
+      // Remove old Image if any
+      await Database.images.clear();
+
+      // Generate unique ID for the new image
+      const id = crypto.randomUUID();
+
+      // Store the new image in IndexedDB
+      await Database.images.add({
+        id,
+        imageFile: file,
+        createdAt: new Date().toISOString(),
+      });
+
+      // Create a preview URL for the selected file
+      const preview = URL.createObjectURL(file);
+      setPreviewURL(preview);
+    } catch (error) {
+      console.error("Error handling file selection:", error);
+    }
   };
 
   const handleRemoveFile = async () => {
-    setValue("imageFile", null);
+    try {
+      // Reset form state
+      setValue("imageFile", null, {
+        shouldValidate: false,
+      });
 
-    setPreviewURL(null);
+      // Clear the preview URL
+      if(previewURL) {
+        URL.revokeObjectURL(previewURL);
+      }
+
+      setPreviewURL(null);
+
+      // Remove the image from IndexedDB
+      await Database.images.clear();
+
+      // Clear Hidden input value
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    } catch (error) {
+      console.error("Error removing file:", error);
+    }
   };
 
   const imageFile = useWatch({ control, name: "imageFile" });
@@ -73,19 +115,26 @@ const UploadForm = () => {
       }
 
       const result = await response.json();
-      
-      // Save to Dexie
-      await Database.images.add({
-        imageFile: data.imageFile,
-        prediction: result,
-        createdAt: new Date(),
-      })
 
       console.log("Session saved:", result);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
+
+  useEffect(() => {
+    async function loadLastImage() {
+      const image = await Database.images.orderBy('createdAt').last();
+
+      if(!image) return;
+
+      setValue("imageFile", image.imageFile)
+
+      setPreviewURL(URL.createObjectURL(image.imageFile));
+    }
+
+    loadLastImage();
+  }, [setValue]);
 
   return (
     <section className="flex flex-col mx-auto px-4">

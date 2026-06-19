@@ -1,6 +1,6 @@
-export interface StoredImage {
-  id: number
-  file: File
+export interface SessionRecord {
+  id: unknown,
+  imageFile: File
   createdAt: string
 }
 
@@ -12,16 +12,6 @@ export interface UploadState {
 export interface PredictionResponse {
   gender: string
   confidence: number
-}
-
-export interface PredictionState {
-  loading: boolean
-  result: PredictionResponse | null
-  error: string | null
-}
-
-export interface ApiError {
-  detail: string
 }
 
 export interface GenderSession {

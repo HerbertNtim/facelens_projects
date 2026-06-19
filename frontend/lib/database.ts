@@ -1,12 +1,7 @@
 // db.ts
+import { SessionRecord } from '@/types';
 import Dexie, { EntityTable } from 'dexie';
 
-export interface SessionRecord {
-  id?: number;
-  imageFile: File;
-  prediction: unknown; // Critical: Store as Blob, do NOT index
-  createdAt: Date;
-}
 
 const Database = new Dexie('NextFormDB') as Dexie & {
   images: EntityTable<SessionRecord, 'id'>;
